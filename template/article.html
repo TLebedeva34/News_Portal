@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% load custom_filters %}
+
+{% block title %}
+article.title
+{% endblock title %}
+
+{% block content %}
+<h1>{{ article.title}}</h1>
+<hr>
+<h2>{{ article.text}}</h2>
+<hr>
+<h3>{{ article.date|date:'d.M.Y' }}</h3>
+{% endblock content %}
