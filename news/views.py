@@ -15,16 +15,6 @@ class ArticlesList(ListView):
     context_object_name = 'article'
     paginate_by = 10
 
-#    def get_queryset(self):
-#        queryset = super().get_queryset()
-#        self.filterset = ArticleFilter(self.request.GET, queryset)
-#        return self.filterset.qs
-#
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['filterset'] = self.filterset
-#        return context
-
 
 class ArticleDetail(DetailView):
     model = Article
@@ -36,6 +26,13 @@ class ArticleCreate(CreateView):
     form_class = ArticleForm
     model = Article
     template_name = 'article_edit.html'
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        if self.request.path == '/news/articles/create/':
+            article.type = 'A'
+        article.save()
+        return super().form_valid(form)
 
 
 class ArticleUpdate(UpdateView):
@@ -60,7 +57,7 @@ class NewsSearch(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = NewsFilter(self.request.GET, queryset)
-        return  self.filterset.qs
+        return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

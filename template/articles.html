@@ -33,6 +33,7 @@ All News
                <td>Новость</td>
                <td>Дата публикации</td>
                <td>Специальноть</td>
+               <td>Тип публикации</td>
            </tr>
            {% for articles in article %}
            <tr>
@@ -40,6 +41,7 @@ All News
                <<td>{{ articles.text|truncatechars:20 }}</td>\
                <td>{{ articles.date|date:'d.M.Y'}}</td>
                <td>{{ articles.category }}</td>
+               <td>{{ articles.get_type_display }}</td>
            </tr>
            {% endfor %}
        </table>

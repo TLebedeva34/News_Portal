@@ -12,21 +12,12 @@
    <h1> Поиск новостей:</h1>
 
 <form action="" method="get" >
-    {{ filterset.form.non_field_errors }}
-
-    {{ filterset.form.name__icontains.errors }}
-    <label for="{{ filterset.form.name__icontains.id_for_label }}">Search</label>
-    <input
-        id="{{ filterset.form.name__icontains.id }}"
-        name="{{ filterset.form.name__icontains.title }}"
-        value="{{ filterset.form.name__icontains.value }}"
-        class="form-control"
-    >
+    {{ filterset.form.as_p }}
     <input type="submit" class="mt-3 btn-primary" value="Найти" />
 </form>
 
 <hr>
-   {% if article %}
+   {% if search %}
        <table>
            <tr>
                <td>Заголовок</td>
@@ -34,7 +25,7 @@
                <td>Дата публикации</td>
                <td>Специальноть</td>
            </tr>
-           {% for articles in article %}
+           {% for articles in search %}
            <tr>
                <td>{{ articles.title }}</td>
                <<td>{{ articles.text|truncatechars:20 }}</td>\

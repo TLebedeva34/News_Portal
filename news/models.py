@@ -1,6 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
+article = 'A'
+news = 'N'
+SELECT_TYPE = [(article, 'Статья'), (news, 'Новость')]
+
 
 class Article(models.Model):
     title = models.CharField(
@@ -19,6 +23,11 @@ class Article(models.Model):
         to='Author',
         on_delete=models.CASCADE,
         related_name='author',
+    )
+    type = models.CharField(
+        max_length=1,
+        choices=SELECT_TYPE,
+        default=news
     )
 
     def __str__(self):
