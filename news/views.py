@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView,
@@ -22,7 +24,9 @@ class ArticleDetail(DetailView):
     context_object_name = 'article'
 
 
-class ArticleCreate(CreateView):
+class ArticleCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_news',)
+    raise_exception = True
     form_class = ArticleForm
     model = Article
     template_name = 'article_edit.html'
@@ -35,7 +39,8 @@ class ArticleCreate(CreateView):
         return super().form_valid(form)
 
 
-class ArticleUpdate(UpdateView):
+class ArticleUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_news',)
     form_class = ArticleForm
     model = Article
     template_name = 'article_edit.html'
