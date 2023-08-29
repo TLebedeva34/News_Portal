@@ -12,8 +12,8 @@ def news_created(instance, created, **kwargs):
         return
 
     emails = User.objects.filter(
-        ubscriptios__category=instance.category
-    ).values_lisrt('email', flat=True)
+        subscriptios__category=instance.category
+    ).values_list('email', flat=True)
 
     subject = f'Новая статья в категории {instance.category}'
 
